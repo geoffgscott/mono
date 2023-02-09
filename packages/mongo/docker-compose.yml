@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db:
+    build:
+      context: .
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - '27017:27017'
+    volumes:
+      - data:/data/db
+    healthcheck:
+      test: |
+        test $$(mongosh --quiet -u root -p root --eval "try { rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'db' }] }).ok } catch (_) { rs.status().ok }") -eq 1
+      interval: 10s
+      start_period: 30s
+volumes:
+  data:

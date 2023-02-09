@@ -1,0 +1,45 @@
+{
+  "name": "@mono/entities",
+  "private": true,
+  "version": "0.0.3",
+  "type": "module",
+  "types": "./index.d.ts",
+  "files": [
+    "dist/*",
+    "index.d.ts",
+    "utility.d.ts",
+    "team.d.ts",
+    "user.d.ts"
+  ],
+  "exports": {
+    "./utility": {
+      "require": "./dist/utility.cjs",
+      "import": "./dist/utility.js"
+    },
+    "./user": {
+      "require": "./dist/user.cjs",
+      "import": "./dist/user.js"
+    },
+    "./team": {
+      "require": "./dist/team.cjs",
+      "import": "./dist/team.js"
+    }
+  },
+  "scripts": {
+    "build": "if [ -d './dist/' ]; then rm -r ./dist/; fi && vite build && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "preview": "vite preview",
+    "test:unit": "vitest ./src --coverage",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix"
+  },
+  "dependencies": {
+    "tsc-alias": "^1.8.2",
+    "vitest": "^0.27.2",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.15",
+    "tsconfig-paths": "^4.1.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}
